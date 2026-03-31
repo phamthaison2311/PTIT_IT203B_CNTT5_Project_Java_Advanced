@@ -109,7 +109,7 @@ public class MenuAdmin {
                 case 0:
                     return;
                 default:
-                    System.out.println("Sai lựa chọn!");
+                    System.out.println(RED + "LỖI: Lựa chọn sai nhận lại!" + RESET);
             }
         }
     }
@@ -150,12 +150,27 @@ public class MenuAdmin {
     }
     // Cập nhật danh mục
     private static void updateCategory() {
-        System.out.print("ID: ");
+        System.out.print("ID danh mục cần sửa: ");
         int id = sc.nextInt();
         sc.nextLine();
 
-        System.out.print("Tên mới: ");
-        String name = sc.nextLine();
+        String name;
+        while (true) {
+            System.out.print("Nhập tên danh mục: ");
+            name = sc.nextLine().trim();
+
+            if (name.isEmpty()) {
+                System.out.println(RED + "LỖI: Không được để trống thông tin này!" + RESET);
+                continue;
+            }
+
+            if (categoryService.checkCategoryNameExists(name)) {
+                System.out.println(RED + "LỖI: Danh mục đã tồn tại!" + RESET);
+                continue;
+            }
+
+            break;
+        }
 
         categoryService.update(id, name);
     }
@@ -220,42 +235,122 @@ public class MenuAdmin {
     private static void addProduct() {
         Product p = new Product();
 
-        System.out.print("Tên: ");
-        p.setProductName(sc.nextLine());
-
-        System.out.print("Hãng: ");
-        p.setBrand(sc.nextLine());
-
-        System.out.print("Dung lượng: ");
-        p.setCapacity(sc.nextLine());
-
-        System.out.print("Màu: ");
-        p.setColor(sc.nextLine());
-
-        System.out.print("Giá: ");
-        p.setPrice(sc.nextDouble());
-
-        System.out.print("Stock: ");
-        p.setStock(sc.nextInt());
-        sc.nextLine();
-
-        System.out.print("Mô tả: ");
-        p.setDescription(sc.nextLine());
-
-        int categoryId;
+        // ===== TÊN =====
         while (true) {
-            System.out.print("Nhập ID danh mục: ");
-            categoryId = sc.nextInt();
-            sc.nextLine();
+            System.out.print("Tên: ");
+            String name = sc.nextLine().trim();
 
-            if (!categoryService.checkCategoryExists(categoryId)) {
-                System.out.println(RED + "LỖI: Danh mục không tồn tại!" + RESET);
+            if (name.isEmpty()) {
+                System.out.println(RED + "Tên không được để trống!" + RESET);
             } else {
+                p.setProductName(name);
                 break;
             }
         }
 
-        p.setIdCategory(categoryId);
+        // ===== HÃNG =====
+        while (true) {
+            System.out.print("Hãng: ");
+            String brand = sc.nextLine().trim();
+
+            if (brand.isEmpty()) {
+                System.out.println(RED + "Hãng không được để trống!" + RESET);
+            } else {
+                p.setBrand(brand);
+                break;
+            }
+        }
+
+        // ===== DUNG LƯỢNG =====
+        while (true) {
+            System.out.print("Dung lượng: ");
+            String capacity = sc.nextLine().trim();
+
+            if (capacity.isEmpty()) {
+                System.out.println(RED + "Dung lượng không được để trống!" + RESET);
+            } else {
+                p.setCapacity(capacity);
+                break;
+            }
+        }
+
+        // ===== MÀU =====
+        while (true) {
+            System.out.print("Màu: ");
+            String color = sc.nextLine().trim();
+
+            if (color.isEmpty()) {
+                System.out.println(RED + "Màu không được để trống!" + RESET);
+            } else {
+                p.setColor(color);
+                break;
+            }
+        }
+
+        // ===== GIÁ =====
+        while (true) {
+            try {
+                System.out.print("Giá: ");
+                double price = Double.parseDouble(sc.nextLine());
+
+                if (price <= 0) {
+                    System.out.println(RED + "Giá phải > 0!" + RESET);
+                } else {
+                    p.setPrice(price);
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println(RED + "Giá phải là số!" + RESET);
+            }
+        }
+
+        // ===== STOCK =====
+        while (true) {
+            try {
+                System.out.print("Stock: ");
+                int stock = Integer.parseInt(sc.nextLine());
+
+                if (stock < 0) {
+                    System.out.println(RED + "Stock không được âm!" + RESET);
+                } else {
+                    p.setStock(stock);
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println(RED + "Stock phải là số nguyên!" + RESET);
+            }
+        }
+
+        // ===== MÔ TẢ =====
+        while (true) {
+            System.out.print("Mô tả: ");
+            String desc = sc.nextLine().trim();
+
+            if (desc.isEmpty()) {
+                System.out.println(RED + "Mô tả không được để trống!" + RESET);
+            } else {
+                p.setDescription(desc);
+                break;
+            }
+        }
+
+        // ===== CATEGORY =====
+        int categoryId;
+        while (true) {
+            try {
+                System.out.print("Nhập ID danh mục: ");
+                categoryId = Integer.parseInt(sc.nextLine());
+
+                if (!categoryService.checkCategoryExists(categoryId)) {
+                    System.out.println(RED + "Danh mục không tồn tại!" + RESET);
+                } else {
+                    p.setIdCategory(categoryId);
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println(RED + "ID phải là số!" + RESET);
+            }
+        }
 
         productService.addProduct(p);
     }
@@ -290,44 +385,95 @@ public class MenuAdmin {
         Product p = new Product();
         p.setIdProduct(id);
 
-        System.out.print("Tên mới: ");
-        p.setProductName(sc.nextLine());
+        System.out.print("Tên mới (Enter = giữ nguyên): ");
+        String name = sc.nextLine().trim();
+        p.setProductName(name.isEmpty() ? old.getProductName() : name);
 
         System.out.print("Hãng mới: ");
-        p.setBrand(sc.nextLine());
+        String brand = sc.nextLine().trim();
+        p.setBrand(brand.isEmpty() ? old.getBrand() : brand);
 
         System.out.print("Dung lượng mới: ");
-        p.setCapacity(sc.nextLine());
+        String capacity = sc.nextLine().trim();
+        p.setCapacity(capacity.isEmpty() ? old.getCapacity() : capacity);
 
         System.out.print("Màu mới: ");
-        p.setColor(sc.nextLine());
+        String color = sc.nextLine().trim();
+        p.setColor(color.isEmpty() ? old.getColor() : color);
 
-        System.out.print("Giá mới: ");
-        p.setPrice(sc.nextDouble());
-
-        System.out.print("Stock mới: ");
-        p.setStock(sc.nextInt());
-        sc.nextLine();
-
-        System.out.print("Mô tả mới: ");
-        p.setDescription(sc.nextLine());
-
-        int categoryId;
         while (true) {
-            System.out.print("Nhập ID danh mục: ");
-            categoryId = sc.nextInt();
-            sc.nextLine();
+            System.out.print("Giá mới: ");
+            String input = sc.nextLine().trim();
 
-            if (!categoryService.checkCategoryExists(categoryId)) {
-                System.out.println(RED + "Danh mục không tồn tại *_-" + RESET);
-            } else {
+            if (input.isEmpty()) {
+                p.setPrice(old.getPrice());
                 break;
+            }
+
+            try {
+                double price = Double.parseDouble(input);
+                if (price <= 0) {
+                    System.out.println(RED + "Giá phải > 0!" + RESET);
+                } else {
+                    p.setPrice(price);
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println(RED + "Giá phải là số!" + RESET);
             }
         }
 
-        p.setIdCategory(categoryId);
+        while (true) {
+            System.out.print("Stock mới: ");
+            String input = sc.nextLine().trim();
+
+            if (input.isEmpty()) {
+                p.setStock(old.getStock());
+                break;
+            }
+
+            try {
+                int stock = Integer.parseInt(input);
+                if (stock < 0) {
+                    System.out.println(RED + "Stock không được âm!" + RESET);
+                } else {
+                    p.setStock(stock);
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println(RED + "Stock phải là số!" + RESET);
+            }
+        }
+
+        System.out.print("Mô tả mới: ");
+        String desc = sc.nextLine().trim();
+        p.setDescription(desc.isEmpty() ? old.getDescription() : desc);
+
+        while (true) {
+            System.out.print("ID danh mục mới: ");
+            String input = sc.nextLine().trim();
+
+            if (input.isEmpty()) {
+                p.setIdCategory(old.getIdCategory());
+                break;
+            }
+
+            try {
+                int categoryId = Integer.parseInt(input);
+
+                if (!categoryService.checkCategoryExists(categoryId)) {
+                    System.out.println(RED + "Danh mục không tồn tại!" + RESET);
+                } else {
+                    p.setIdCategory(categoryId);
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println(RED + "ID phải là số!" + RESET);
+            }
+        }
 
         productService.updateProduct(p);
+        System.out.println(GREEN + "Cập nhật thành công!" + RESET);
     }
 
     // Xóa sản phẩm
