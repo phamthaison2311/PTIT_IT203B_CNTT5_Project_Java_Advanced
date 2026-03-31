@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$PROJECT_DIR$/src/dao/CartDAO.java" value="294f9193-167d-49ad-b68a-2284807417d9" />
+    <file url="file://$PROJECT_DIR$/src/dao/CategoryDAO.java" value="294f9193-167d-49ad-b68a-2284807417d9" />
+    <file url="file://$PROJECT_DIR$/src/dao/OrderDAO.java" value="294f9193-167d-49ad-b68a-2284807417d9" />
+    <file url="file://$PROJECT_DIR$/src/dao/ProductDAO.java" value="294f9193-167d-49ad-b68a-2284807417d9" />
+    <file url="file://$PROJECT_DIR$/src/dao/UserDAO.java" value="294f9193-167d-49ad-b68a-2284807417d9" />
+    <file url="file://$PROJECT_DIR$/src/service/OrderService.java" value="294f9193-167d-49ad-b68a-2284807417d9" />
+  </component>
+</project>
