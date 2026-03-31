@@ -36,8 +36,16 @@ public class MainMenu {
             System.out.println(CYAN + "    ╚══════════════════════════════════════════╝" + RESET);
             System.out.print(YELLOW + "    > Vui lòng chọn: " + RESET);
 
-            int choice = sc.nextInt();
-            sc.nextLine();
+            int choice;
+
+            try {
+                choice = sc.nextInt();
+                sc.nextLine(); // clear buffer
+            } catch (Exception e) {
+                System.out.println(RED + "CẤM PHÁ HOẠI HỆ THỐNG!!! Nhập số đi *I*" + RESET);
+                sc.nextLine(); // clear input lỗi
+                continue; // quay lại menu
+            }
 
             switch (choice) {
                 case 1:

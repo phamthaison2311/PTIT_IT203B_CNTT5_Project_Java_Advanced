@@ -34,8 +34,16 @@ public class MenuUser {
             System.out.println(CYAN + "    ║" + RED + "  [0]. Đăng xuất hệ thống                 " + CYAN + "║" + RESET);
             System.out.println(CYAN + "    ╚══════════════════════════════════════════╝" + RESET);
             System.out.print(YELLOW + "    > Nhập lựa chọn của bạn: " + RESET);
-            int choice = sc.nextInt();
-            sc.nextLine();
+            int choice;
+
+            try {
+                choice = sc.nextInt();
+                sc.nextLine(); // clear buffer
+            } catch (Exception e) {
+                System.out.println(RED + "CẤM PHÁ HOẠI HỆ THỐNG!!! Nhập số đi" + RESET);
+                sc.nextLine(); // clear input lỗi
+                continue; // quay lại menu
+            }
 
             switch (choice) {
                 case 1:
@@ -95,8 +103,16 @@ public class MenuUser {
             System.out.println("0. Quay lại");
             System.out.print("Chọn: ");
 
-            int choice = sc.nextInt();
-            sc.nextLine();
+            int choice;
+
+            try {
+                choice = sc.nextInt();
+                sc.nextLine(); // clear buffer
+            } catch (Exception e) {
+                System.out.println(RED + "CẤM PHÁ HOẠI HỆ THỐNG!!! Nhập số đi" + RESET);
+                sc.nextLine(); // clear input lỗi
+                continue; // quay lại menu
+            }
 
             switch (choice) {
                 case 1:
@@ -177,8 +193,16 @@ public class MenuUser {
         System.out.println("2. Giá giảm dần");
         System.out.print("Chọn: ");
 
-        int choice = sc.nextInt();
-        sc.nextLine();
+        int choice;
+
+        try {
+            choice = sc.nextInt();
+            sc.nextLine(); // clear buffer
+        } catch (Exception e) {
+            System.out.println(RED + "CẤM PHÁ HOẠI HỆ THỐNG!!! Nhập số đi" + RESET);
+            sc.nextLine(); // clear input lỗi
+            return;
+        }
 
         if (choice == 1) {
             productService.sortProductByPrice(true);

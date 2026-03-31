@@ -38,8 +38,16 @@ public class MenuAdmin {
             System.out.println(RED + "    ║" + PURPLE + "   [0]. Đăng xuất hệ thống                " + RED + "║" + RESET);
             System.out.println(RED + "    ╚══════════════════════════════════════════╝" + RESET);
             System.out.print(YELLOW + "    > Admin chọn chức năng: " + RESET);
-            int choice = sc.nextInt();
-            sc.nextLine();
+            int choice;
+
+            try {
+                choice = sc.nextInt();
+                sc.nextLine(); // clear buffer
+            } catch (Exception e) {
+                System.out.println(RED + "CẤM PHÁ HOẠI HỆ THỐNG!!! Nhập số đi" + RESET);
+                sc.nextLine(); // clear input lỗi
+                continue; // quay lại menu
+            }
 
             switch (choice) {
                 case 1:
@@ -74,8 +82,16 @@ public class MenuAdmin {
             System.out.println(GREEN + "    └──────────────────────────────────────────┘" + RESET);
             System.out.print(YELLOW + "    > Chọn chức năng: " + RESET);
 
-            int choice = sc.nextInt();
-            sc.nextLine();
+            int choice;
+
+            try {
+                choice = sc.nextInt();
+                sc.nextLine(); // clear buffer
+            } catch (Exception e) {
+                System.out.println(RED + "CẤM PHÁ HOẠI HỆ THỐNG!!! Nhập số đi" + RESET);
+                sc.nextLine(); // clear input lỗi
+                continue; // quay lại menu
+            }
 
             switch (choice) {
                 case 1:
@@ -162,8 +178,16 @@ public class MenuAdmin {
             System.out.println(BLUE + "    ╰──────────────────────────────────────────╯" + RESET);
             System.out.print(YELLOW + "    Nhập lệnh điều khiển (0-6): " + RESET);
 
-            int choice = sc.nextInt();
-            sc.nextLine();
+            int choice;
+
+            try {
+                choice = sc.nextInt();
+                sc.nextLine(); // clear buffer
+            } catch (Exception e) {
+                System.out.println(RED + "CẤM PHÁ HOẠI HỆ THỐNG!!! Nhập số đi" + RESET);
+                sc.nextLine(); // clear input lỗi
+                continue; // quay lại menu
+            }
 
             switch (choice) {
                 case 1:
@@ -358,8 +382,16 @@ public class MenuAdmin {
         System.out.println("2. Giá giảm dần");
         System.out.print("Chọn: ");
 
-        int choice = sc.nextInt();
-        sc.nextLine();
+        int choice;
+
+        try {
+            choice = sc.nextInt();
+            sc.nextLine(); // clear buffer
+        } catch (Exception e) {
+            System.out.println(RED + "CẤM PHÁ HOẠI HỆ THỐNG!!! Nhập số đi" + RESET);
+            sc.nextLine(); // clear input lỗi
+            return;
+        }
 
         if (choice == 1) {
             productService.sortProductByPrice(true);
@@ -383,8 +415,16 @@ public class MenuAdmin {
             System.out.println(PURPLE + "    ╚══════════════════════════════════════════╝" + RESET);
             System.out.print(YELLOW + "    Nhập lựa chọn của bạn: " + RESET);
 
-            int choice = sc.nextInt();
-            sc.nextLine();
+            int choice;
+
+            try {
+                choice = sc.nextInt();
+                sc.nextLine(); // clear buffer
+            } catch (Exception e) {
+                System.out.println(RED + "CẤM PHÁ HOẠI HỆ THỐNG!!! Nhập số đi" + RESET);
+                sc.nextLine(); // clear input lỗi
+                continue; // quay lại menu
+            }
 
             switch (choice) {
                 case 1:
