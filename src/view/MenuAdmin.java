@@ -556,6 +556,7 @@ public class MenuAdmin {
             System.out.println(PURPLE + "    ╠══════════════════════════════════════════╣" + RESET);
             System.out.println(PURPLE + "    ║" + GREEN + "  [1]. Xem danh sách tất cả đơn hàng      " + PURPLE + "║" + RESET);
             System.out.println(PURPLE + "    ║" + GREEN + "  [2]. Tra cứu chi tiết mã đơn hàng       " + PURPLE + "║" + RESET);
+            System.out.println(PURPLE + "    ║" + GREEN + "  [3]. Cập nhật trang thái đơn hàng       " + PURPLE + "║" + RESET);
             System.out.println(PURPLE + "    ╠══════════════════════════════════════════╣" + RESET);
             System.out.println(PURPLE + "    ║" + CYAN + "  [0]. Quay lại trang Quản trị            " + PURPLE + "║" + RESET);
             System.out.println(PURPLE + "    ╚══════════════════════════════════════════╝" + RESET);
@@ -579,6 +580,9 @@ public class MenuAdmin {
                 case 2:
                     viewOrderDetail();
                     break;
+                case 3:
+                    updateOrderStatus();
+                    break;
                 case 0:
                     return;
             }
@@ -591,6 +595,46 @@ public class MenuAdmin {
         sc.nextLine();
 
         orderService.viewOrderDetail(orderId);
+    }
+
+    private static void updateOrderStatus() {
+        try {
+            System.out.print("Nhập ID đơn hàng: ");
+            int id = Integer.parseInt(sc.nextLine());
+
+            System.out.println("1. pending");
+            System.out.println("2. paid");
+            System.out.println("3. shipped");
+            System.out.println("4. cancelled");
+
+            System.out.print("Chọn trạng thái: ");
+            int choice = Integer.parseInt(sc.nextLine());
+
+            String status = "";
+
+            switch (choice) {
+                case 1: status = "pending"; break;
+                case 2: status = "paid"; break;
+                case 3: status = "shipped"; break;
+                case 4: status = "cancelled"; break;
+                default:
+                    System.out.println("Sai lựa chọn!");
+                    return;
+            }
+
+            System.out.print("Xác nhận cập nhật? (y/n): ");
+            String confirm = sc.nextLine();
+
+            if (!confirm.equalsIgnoreCase("y")) {
+                System.out.println("Đã hủy!");
+                return;
+            }
+
+            orderService.updateOrderStatus(id, status);
+
+        } catch (Exception e) {
+            System.out.println("Dữ liệu không hợp lệ!");
+        }
     }
 
 }

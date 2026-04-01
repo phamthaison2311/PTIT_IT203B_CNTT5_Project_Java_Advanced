@@ -128,5 +128,12 @@ public class OrderService {
         }
     }
 
+    public void updateOrderStatus(int orderId, String status) {
+        try {
+            orderDAO.updateOrderStatus(orderId, status);
+        } catch (Exception e) {
+            System.out.println("Lỗi cập nhật trạng thái!");
+        }
+    }
 
 }

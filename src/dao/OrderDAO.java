@@ -92,7 +92,7 @@ public class OrderDAO {
         UPDATE Orders
         SET status = 'shipped'
         WHERE status = 'pending'
-          AND TIMESTAMPDIFF(MINUTE, created_at, NOW()) >= 30
+          AND TIMESTAMPDIFF(MINUTE, created_at, NOW()) >= 1
     """;
 
         Connection conn = DataConnect.openConnection();
@@ -222,5 +222,25 @@ public class OrderDAO {
         } finally {
             conn.close();
         }
+    }
+
+    public void updateOrderStatus(int orderId, String status) throws Exception {
+        String sql = "UPDATE Orders SET status=? WHERE id_order=?";
+
+        Connection conn = DataConnect.openConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ps.setString(1, status);
+        ps.setInt(2, orderId);
+
+        int rows = ps.executeUpdate();
+
+        if (rows > 0) {
+            System.out.println("Cập nhật trạng thái thành công!");
+        } else {
+            System.out.println("Không tìm thấy đơn hàng!");
+        }
+
+        conn.close();
     }
 }
