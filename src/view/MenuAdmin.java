@@ -17,11 +17,12 @@ public class MenuAdmin {
     private static OrderService orderService = new OrderService();
 
     public static final String RESET = "\u001B[0m";
-    public static final String RED = "\u001B[31m";
+    public static final String BLUE = "\u001B[34m";
     public static final String YELLOW = "\u001B[33m";
-    public static final String CYAN = "\u001B[36m";
-    public static final String PURPLE = "\u001B[35m";
     public static final String GREEN = "\u001B[32m";
+    public static final String CYAN = "\u001B[36m";
+    public static final String RED = "\u001B[31m";
+    public static final String PURPLE = "\u001B[35m";
 
     /**
      * PHẦN MENU DÀNH CHO ADMIN
@@ -177,13 +178,14 @@ public class MenuAdmin {
 
     // Menu quản lý sản phẩm
     private static void productMenu() {
+
         while (true) {
             System.out.println(BLUE + "    ╭──────────────────────────────────────────╮" + RESET);
             System.out.println(BLUE + "    │" + YELLOW + "         QUẢN LÝ KHO SẢN PHẨM          " + BLUE + "│" + RESET);
             System.out.println(BLUE + "    ├──────────────────────────────────────────┤" + RESET);
             System.out.println(BLUE + "    │" + GREEN + "  [1]. Thêm mới sản phẩm               " + BLUE + "│" + RESET);
             System.out.println(BLUE + "    │" + GREEN + "  [2]. Chỉnh sửa thông tin             " + BLUE + "│" + RESET);
-            System.out.println(BLUE + "    │" + RED + "  [3]. 🗑Xóa sản phẩm khỏi kho          " + BLUE + "│" + RESET);
+            System.out.println(BLUE + "    │" + RED + "  [3]. Xóa sản phẩm khỏi kho          " + BLUE + "│" + RESET);
             System.out.println(BLUE + "    ├──────────────────────────────────────────┤" + RESET);
             System.out.println(BLUE + "    │" + CYAN + "  [4]. Hiển thị tất cả sản phẩm        " + BLUE + "│" + RESET);
             System.out.println(BLUE + "    │" + CYAN + "  [5]. Tìm kiếm sản phẩm               " + BLUE + "│" + RESET);
